@@ -2,10 +2,28 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
 
+    describe 'associations' do
+      it { should have_many :assignments }
+    end
+
     describe 'validations' do
       it { should validate_presence_of :first_name }
       it { should validate_presence_of :last_name }
     end
+
+    describe '.by_first_name' do
+      before do
+        create(:user, first_name: 'Justin', last_name: 'Viers')
+        create(:user, first_name: 'Justin', last_name: 'Ruiz')
+        create(:user, first_name: 'Landon', last_name: 'West')
+        end
+        it 'returns 2 users' do
+          expect(User.by_first_name('Justin').count).to eq 2
+        end
+        it 'does not include Landon.' do
+          expect(User.by_first_name('Justin').collect(&:first_name)).to_not include 'Landon'
+        end
+      end
 
     describe '#name' do
       before do
@@ -29,7 +47,7 @@ RSpec.describe User, :type => :model do
       end
     end
 
-    describe '#inactive?', :focus do
+    describe '#inactive?' do
       before do
         @user = create(:user, active: false)
       end
