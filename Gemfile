@@ -15,10 +15,11 @@ gem 'spring',        group: :development
 group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
-  gem 'timecop' 
+  gem 'timecop'
 end
 
  group :development, :test do
+   gem 'spring-commands-rspec'
    gem 'ffaker'
    gem 'rspec-rails'
    gem 'pry-rails'
