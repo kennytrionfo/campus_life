@@ -38,9 +38,9 @@ RSpec.describe NotesController, :type => :controller do
   end
 
   describe '#create'  do
-    context 'when saving a proper record' do
+    context 'when saving a valid record' do
       it 'creates a new note and saves it to the db' do
-        expect {
+        expect{
           post :create, note: {text: 'a new note'}
         }.to change(Note, :count).by(1)
       end
@@ -66,7 +66,7 @@ RSpec.describe NotesController, :type => :controller do
     end
   end
 
-  describe '#update' do
+  describe '#update' , :focus do
   # hint 2
     before do
      @note = create(:note, text: "this")
